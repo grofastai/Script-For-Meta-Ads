@@ -1,0 +1,30 @@
+HOOK GENERATION: HOSPITAL / CLINIC
+
+CONTEXT VARIABLES:
+- {{city}}, {{offer}}, {{audience}}, {{few_shot_examples}}, {{city_psychology}}
+
+INSTRUCTIONS:
+Generate 3 hook variants for a hospital or clinic in {{city}}.
+
+IMPORTANT: Do NOT make medical claims or guarantee cures. Hooks should create awareness of a health concern or promote accessibility of care (free checkup, availability, convenience).
+
+Focus on: prevention, free consultations, availability, trust signals (years of experience, number of patients treated).
+
+CITY: {{city}}
+OFFER: {{offer}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS:
+{{few_shot_examples}}
+
+CITY PSYCHOLOGY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "problem-solution"},
+    {"text": "...", "type": "urgency"},
+    {"text": "...", "type": "social-proof"}
+  ]
+}

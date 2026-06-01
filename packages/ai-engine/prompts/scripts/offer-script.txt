@@ -1,0 +1,34 @@
+SCRIPT GENERATION: OFFER / PROMOTIONAL SCRIPT
+
+GOAL: Drive immediate action on a specific offer (discount, free service, limited deal)
+
+CONTEXT:
+- Hook: {{hook}}
+- Business: {{business_name}} ({{niche}}) in {{city}}
+- Offer: {{offer}}
+- Target Audience: {{target_audience}}
+- City Psychology: {{city_psychology}}
+- Language: {{language}}
+
+SCRIPT STRUCTURE (30-60 second reel — shorter is better for offers):
+1. Hook (0-3 sec): Use the provided hook
+2. Offer reveal (3-10 sec): State the offer clearly and specifically
+3. What they get (10-25 sec): List exactly what's included — be specific with numbers/values
+4. Who it's for (25-35 sec): Qualify the audience ("if you're in {{city}} and...")
+5. How to claim (35-45 sec): Exact steps to redeem (call/DM/visit)
+6. Urgency/Scarcity (45-55 sec): Why they must act now
+7. Repeat CTA (55-60 sec): Say the action one more time
+
+IMPORTANT: Offer scripts must include the specific offer value. Vague offers ("great discount") must be rejected — always specify the exact rupee amount or percentage.
+
+OUTPUT FORMAT (JSON):
+{
+  "script": "Full offer script...",
+  "cta": "Direct CTA with contact method",
+  "caption": "Offer-focused caption with full details...",
+  "hashtags": ["#hashtag1", "#hashtag2"],
+  "posting_time": "Best time for offer posts in this niche",
+  "ad_copy": "Meta Ads copy optimized for conversions",
+  "video_structure": "Fast-paced offer video structure",
+  "shot_list": ["Shot 1: ...", "Shot 2: ..."]
+}

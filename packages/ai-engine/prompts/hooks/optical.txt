@@ -1,0 +1,39 @@
+HOOK GENERATION: OPTICAL STORE
+
+CONTEXT VARIABLES (injected at runtime):
+- {{city}}: the target city
+- {{offer}}: the current offer/promotion
+- {{audience}}: the target audience segment
+- {{few_shot_examples}}: top 3-5 performing hooks from the database
+- {{city_psychology}}: the city psychology profile text
+
+INSTRUCTIONS:
+Generate 3 hook variants for an optical store in {{city}}. Write in Tanglish unless city is Chennai (use English-first for Chennai).
+
+Each hook must be under 15 words. Hooks are the FIRST LINE of a social media reel — they must stop the scroll in 2 seconds.
+
+Use ONE of these hook types per variant:
+1. Curiosity (make them wonder what's next)
+2. Urgency (time/quantity limit)
+3. Local (call out the city by name)
+4. Problem-Solution (name their eye pain point)
+5. Social Proof (results, customer numbers)
+
+OFFER: {{offer}}
+CITY: {{city}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS FROM THIS NICHE+CITY (use as style reference, do NOT copy):
+{{few_shot_examples}}
+
+AUDIENCE PSYCHOLOGY FOR THIS CITY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "curiosity"},
+    {"text": "...", "type": "urgency"},
+    {"text": "...", "type": "local"}
+  ]
+}

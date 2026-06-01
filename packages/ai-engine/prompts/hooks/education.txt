@@ -1,0 +1,30 @@
+HOOK GENERATION: EDUCATION / COACHING
+
+CONTEXT VARIABLES:
+- {{city}}, {{offer}}, {{audience}}, {{few_shot_examples}}, {{city_psychology}}
+
+INSTRUCTIONS:
+Generate 3 hook variants for an education or coaching center in {{city}}.
+
+Education hooks should address PARENT anxiety (results, board exams, competitive exams) or STUDENT aspiration (career, scoring high, getting into top colleges).
+
+Exam-specific hooks outperform generic "best coaching" hooks. Use specific exams: NEET, JEE, TNPSC, 10th board, 12th board.
+
+CITY: {{city}}
+OFFER: {{offer}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS:
+{{few_shot_examples}}
+
+CITY PSYCHOLOGY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "problem-solution"},
+    {"text": "...", "type": "curiosity"},
+    {"text": "...", "type": "social-proof"}
+  ]
+}

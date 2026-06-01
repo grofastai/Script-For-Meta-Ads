@@ -1,0 +1,32 @@
+SCRIPT GENERATION: LEAD GENERATION SCRIPT
+
+GOAL: Collect leads (name, phone number, WhatsApp opt-in)
+
+CONTEXT:
+- Hook: {{hook}}
+- Business: {{business_name}} ({{niche}}) in {{city}}
+- Offer: {{offer}}
+- Target Audience: {{target_audience}}
+- City Psychology: {{city_psychology}}
+- Language: {{language}}
+
+SCRIPT STRUCTURE (60-90 second reel):
+1. Hook (0-3 sec): Use the provided hook exactly
+2. Problem amplification (3-15 sec): Make the viewer feel their pain point more acutely
+3. Solution reveal (15-35 sec): Introduce the business/offer as the solution
+4. Social proof (35-50 sec): 1-2 specific proof points (numbers, results, customer name)
+5. Offer statement (50-65 sec): State the specific offer clearly
+6. CTA (65-75 sec): One clear action — "Call us", "DM us", "Click the link"
+7. Urgency close (75-85 sec): Why act now (limited time/quantity/spots)
+
+OUTPUT FORMAT (JSON):
+{
+  "script": "Full script with time markers...",
+  "cta": "The specific call-to-action line",
+  "caption": "Instagram/Facebook caption (150-200 words)",
+  "hashtags": ["#hashtag1", "#hashtag2"],
+  "posting_time": "Best day and time to post for this niche+city",
+  "ad_copy": "Meta Ads primary text (for boosting the reel)",
+  "video_structure": "Shot-by-shot description for the videographer",
+  "shot_list": ["Shot 1: ...", "Shot 2: ...", "Shot 3: ..."]
+}

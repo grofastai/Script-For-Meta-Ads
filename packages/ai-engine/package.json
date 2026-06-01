@@ -1,0 +1,6 @@
+{
+  "name": "@scriptsite/ai-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prompt templates and AI routing configuration for ScriptSite"
+}

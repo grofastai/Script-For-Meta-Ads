@@ -1,0 +1,32 @@
+SCRIPT GENERATION: STORY / NARRATIVE SCRIPT
+
+GOAL: Brand awareness, trust building, emotional connection
+
+CONTEXT:
+- Hook: {{hook}}
+- Business: {{business_name}} ({{niche}}) in {{city}}
+- Story angle: {{offer}}
+- Target Audience: {{target_audience}}
+- City Psychology: {{city_psychology}}
+- Language: {{language}}
+
+SCRIPT STRUCTURE (60-90 second reel):
+1. Hook (0-3 sec): Use the provided hook
+2. Story setup (3-20 sec): Introduce a relatable character/situation (customer or founder)
+3. Conflict/Problem (20-35 sec): The challenge they faced
+4. Turning point (35-50 sec): How the business solved it
+5. Resolution (50-65 sec): The happy outcome with specific result
+6. Bridge to viewer (65-75 sec): "Unga situation also idhe mathiri-a?"
+7. Soft CTA (75-85 sec): Low-friction next step (DM, comment "YES", visit)
+
+OUTPUT FORMAT (JSON):
+{
+  "script": "Full story script...",
+  "cta": "Soft call-to-action",
+  "caption": "Story-based caption...",
+  "hashtags": ["#hashtag1", "#hashtag2"],
+  "posting_time": "Best posting time",
+  "ad_copy": "Meta Ads copy for story-based content",
+  "video_structure": "Narrative shot structure",
+  "shot_list": ["Shot 1: ...", "Shot 2: ..."]
+}

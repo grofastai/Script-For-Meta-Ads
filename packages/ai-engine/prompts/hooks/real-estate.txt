@@ -1,0 +1,28 @@
+HOOK GENERATION: REAL ESTATE
+
+CONTEXT VARIABLES:
+- {{city}}, {{offer}}, {{audience}}, {{few_shot_examples}}, {{city_psychology}}
+
+INSTRUCTIONS:
+Generate 3 hook variants for a real estate business in {{city}}.
+
+Real estate hooks must create URGENCY around scarcity (limited plots) or OPPORTUNITY (price appreciation). Generic "invest in property" hooks don't work — be specific to the area.
+
+CITY: {{city}}
+OFFER: {{offer}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS:
+{{few_shot_examples}}
+
+CITY PSYCHOLOGY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "urgency"},
+    {"text": "...", "type": "curiosity"},
+    {"text": "...", "type": "local"}
+  ]
+}
