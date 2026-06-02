@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     apify_api_token: str = ""
     youtube_api_key: str = ""
     allowed_origins: str = "http://localhost:3000"
+    prompt_dir: str = "../../packages/ai-engine/prompts"
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 
