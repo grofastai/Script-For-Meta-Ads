@@ -1,0 +1,45 @@
+HOOK GENERATION: JEWELLERY STORE
+
+CONTEXT VARIABLES (injected at runtime):
+- {{city}}: the target city
+- {{offer}}: the current offer/promotion
+- {{audience}}: the target audience segment
+- {{few_shot_examples}}: top 3-5 performing hooks from the database
+- {{city_psychology}}: the city psychology profile text
+
+INSTRUCTIONS:
+Generate 3 hook variants for a jewellery store in {{city}}. Write in Tanglish. Jewellery purchases are emotional and occasion-driven — hooks should reflect that.
+
+Each hook must be under 15 words. Hooks are the FIRST LINE of a social media reel — they must stop the scroll in 2 seconds.
+
+Key emotional triggers for jewellery:
+- Weddings, engagements, baby showers (gold buying occasions)
+- Investment angle: "gold is savings"
+- Family tradition: "just like your grandmother"
+- Festival buying: Akshaya Tritiya, Diwali, Pongal
+
+Use ONE of these hook types per variant:
+1. Curiosity (tease a new design or collection)
+2. Urgency (rising gold rates, festival offer ending)
+3. Local ("{{city}} la bestselling design")
+4. Social Proof ("500 families trusted us for their wedding gold")
+5. Emotion (connect to a life occasion)
+
+OFFER: {{offer}}
+CITY: {{city}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS FROM THIS NICHE+CITY (use as style reference, do NOT copy):
+{{few_shot_examples}}
+
+AUDIENCE PSYCHOLOGY FOR THIS CITY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "curiosity"},
+    {"text": "...", "type": "urgency"},
+    {"text": "...", "type": "local"}
+  ]
+}

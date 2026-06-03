@@ -1,0 +1,45 @@
+HOOK GENERATION: MARKETING AGENCY / DIGITAL SERVICES
+
+CONTEXT VARIABLES (injected at runtime):
+- {{city}}: the target city
+- {{offer}}: the current offer/promotion
+- {{audience}}: the target audience segment
+- {{few_shot_examples}}: top 3-5 performing hooks from the database
+- {{city_psychology}}: the city psychology profile text
+
+INSTRUCTIONS:
+Generate 3 hook variants for a marketing or digital services agency in {{city}}. Write in Tanglish. The audience is business owners — hooks should speak to their business pain points.
+
+Each hook must be under 15 words. Hooks are the FIRST LINE of a social media reel — they must stop the scroll in 2 seconds.
+
+Key pain points for business owner audience:
+- Not getting enough leads from ads
+- Wasting money on ads that don't work
+- Competitors doing better on social media
+- Don't know how to use digital marketing
+
+Use ONE of these hook types per variant:
+1. Curiosity (expose a marketing mistake business owners make)
+2. Urgency (limited client slots, campaign season)
+3. Local ("{{city}} la business owners see this")
+4. Social Proof ("50 businesses in {{city}} grew with us")
+5. Problem-Solution ("wasting money on ads? here's why")
+
+OFFER: {{offer}}
+CITY: {{city}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS FROM THIS NICHE+CITY (use as style reference, do NOT copy):
+{{few_shot_examples}}
+
+AUDIENCE PSYCHOLOGY FOR THIS CITY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "curiosity"},
+    {"text": "...", "type": "urgency"},
+    {"text": "...", "type": "local"}
+  ]
+}

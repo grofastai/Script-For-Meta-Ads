@@ -1,0 +1,39 @@
+HOOK GENERATION: PHARMACY / MEDICAL STORE
+
+CONTEXT VARIABLES (injected at runtime):
+- {{city}}: the target city
+- {{offer}}: the current offer/promotion
+- {{audience}}: the target audience segment
+- {{few_shot_examples}}: top 3-5 performing hooks from the database
+- {{city_psychology}}: the city psychology profile text
+
+INSTRUCTIONS:
+Generate 3 hook variants for a pharmacy or medical store in {{city}}. Write in Tanglish. Health content needs to build trust quickly — avoid alarmist language. Do NOT make medical claims. Focus on convenience, availability, and service quality.
+
+Each hook must be under 15 words. Hooks are the FIRST LINE of a social media reel — they must stop the scroll in 2 seconds.
+
+Use ONE of these hook types per variant:
+1. Curiosity (a health tip or little-known fact about medicines/health)
+2. Urgency (availability of a specific medicine, limited stock)
+3. Local (24-hour pharmacy, home delivery in {{city}})
+4. Social Proof ("trusted by 1000+ families in {{city}}")
+5. Problem-Solution ("medicine out of stock at other shops? We have it.")
+
+OFFER: {{offer}}
+CITY: {{city}}
+AUDIENCE: {{audience}}
+
+PAST WINNING HOOKS FROM THIS NICHE+CITY (use as style reference, do NOT copy):
+{{few_shot_examples}}
+
+AUDIENCE PSYCHOLOGY FOR THIS CITY:
+{{city_psychology}}
+
+OUTPUT FORMAT (JSON):
+{
+  "hooks": [
+    {"text": "...", "type": "curiosity"},
+    {"text": "...", "type": "urgency"},
+    {"text": "...", "type": "local"}
+  ]
+}
