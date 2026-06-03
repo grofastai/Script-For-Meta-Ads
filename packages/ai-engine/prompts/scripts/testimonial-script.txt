@@ -1,0 +1,32 @@
+SCRIPT GENERATION: TESTIMONIAL / SOCIAL PROOF SCRIPT
+
+GOAL: Build trust through real customer story, drive leads via credibility
+
+CONTEXT:
+- Hook: {{hook}}
+- Business: {{business_name}} ({{niche}}) in {{city}}
+- Offer: {{offer}}
+- Target Audience: {{target_audience}}
+- City Psychology: {{city_psychology}}
+- Language: {{language}}
+
+SCRIPT STRUCTURE (45-75 second reel):
+1. Hook (0-3 sec): Use the provided hook exactly
+2. Customer intro (3-10 sec): "Oru customer story solren..." — introduce the customer (keep anonymous or use first name only)
+3. Before state (10-25 sec): What problem they had before
+4. The solution (25-40 sec): How this business solved it — specific, concrete
+5. Result (40-55 sec): The outcome — numbers if possible ("power reduced", "saved Rs.X", "got job in 3 months")
+6. CTA (55-65 sec): "Unga story idha maadiri aaganuma? Call pannunga / DM pannunga"
+7. Offer (65-75 sec): Add the current offer as an incentive to act now
+
+OUTPUT FORMAT (JSON):
+{
+  "script": "Full script with time markers...",
+  "cta": "The specific call-to-action line",
+  "caption": "Instagram/Facebook caption (150-200 words)",
+  "hashtags": ["#hashtag1", "#hashtag2"],
+  "posting_time": "Best day and time to post for this niche+city",
+  "ad_copy": "Meta Ads primary text (for boosting the reel)",
+  "video_structure": "Shot-by-shot description for the videographer",
+  "shot_list": ["Shot 1: ...", "Shot 2: ...", "Shot 3: ..."]
+}
