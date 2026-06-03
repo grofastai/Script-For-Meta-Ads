@@ -11,6 +11,15 @@ class ScriptRequest(BaseModel):
     language: str  # 'tanglish' | 'english' | 'tamil'
     budget: Optional[float] = None
     business_name: Optional[str] = None
+    business_id: Optional[str] = None
+
+
+class HooksOnlyRequest(BaseModel):
+    niche: str
+    city: str
+    target_audience: str
+    offer: str
+    language: str = "tanglish"
 
 
 class HookVariant(BaseModel):
@@ -19,7 +28,12 @@ class HookVariant(BaseModel):
     freshness_score: float
 
 
+class HooksOnlyResponse(BaseModel):
+    hooks: list[HookVariant]
+
+
 class ScriptResponse(BaseModel):
+    script_id: Optional[str] = None
     hooks: list[HookVariant]
     selected_hook: HookVariant
     script: str
