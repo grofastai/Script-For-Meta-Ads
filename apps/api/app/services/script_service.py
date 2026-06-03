@@ -1,7 +1,8 @@
 from pathlib import Path
 from ..core.config import settings
-from ..models.script import ScriptRequest, ScriptResponse, HookVariant
-from .hook_service import get_top_hooks
+from ..core.database import get_supabase
+from ..models.script import ScriptRequest, ScriptResponse, HookVariant, HooksOnlyRequest, HooksOnlyResponse
+from .hook_service import get_top_hooks, increment_hook_use
 from .ai_service import generate
 
 _GOAL_TO_TEMPLATE = {
@@ -9,6 +10,7 @@ _GOAL_TO_TEMPLATE = {
     "sales": "offer-script.txt",
     "reach": "story-script.txt",
     "engagement": "story-script.txt",
+    "testimonial": "testimonial-script.txt",
 }
 
 _GOAL_TO_TASK = {
@@ -16,6 +18,7 @@ _GOAL_TO_TASK = {
     "sales": "offer-script",
     "reach": "story-script",
     "engagement": "story-script",
+    "testimonial": "testimonial-script",
 }
 
 
@@ -59,21 +62,14 @@ def _build_script_prompt(
     )
 
 
-async def generate_script(request: ScriptRequest) -> ScriptResponse:
-    city_psych = _read_prompt(f"audience/{request.city}.txt")
+def _load_city_psych(city: str) -> str:
+    city_file = f"audience/{city}.txt"
+    if not (Path(settings.prompt_dir) / city_file).exists():
+        city_file = "audience/dharmapuri.txt"
+    return _read_prompt(city_file)
 
-    top_hooks = await get_top_hooks(request.niche, request.city)
-    few_shot_text = "\n".join(
-        f'- "{h["text"]}" (type: {h.get("hook_type", "")})' for h in top_hooks
-    ) or "(No examples yet — generate hooks based on city psychology above)"
 
-    hook_prompt = _build_hook_prompt(
-        request.niche, request.city, request.offer,
-        request.target_audience, few_shot_text, city_psych,
-    )
-    hooks_data = await generate(hook_prompt, "hooks")
-    hooks_raw = hooks_data.get("hooks", [])
-
+def _build_hooks(hooks_raw: list[dict], top_hooks: list[dict]) -> list[HookVariant]:
     hooks: list[HookVariant] = []
     for h in hooks_raw:
         saturation = next(
@@ -85,6 +81,39 @@ async def generate_script(request: ScriptRequest) -> ScriptResponse:
             type=h.get("type", "curiosity"),
             freshness_score=max(0.0, 1.0 - saturation),
         ))
+    return hooks
+
+
+async def generate_hooks_only(request: HooksOnlyRequest) -> HooksOnlyResponse:
+    city_psych = _load_city_psych(request.city)
+    top_hooks = await get_top_hooks(request.niche, request.city)
+    few_shot_text = "\n".join(
+        f'- "{h["text"]}" (type: {h.get("hook_type", "")})' for h in top_hooks
+    ) or "(No examples yet — generate hooks based on city psychology above)"
+
+    hook_prompt = _build_hook_prompt(
+        request.niche, request.city, request.offer,
+        request.target_audience, few_shot_text, city_psych,
+    )
+    hooks_data = await generate(hook_prompt, "hooks")
+    hooks = _build_hooks(hooks_data.get("hooks", []), top_hooks)
+    return HooksOnlyResponse(hooks=hooks)
+
+
+async def generate_script(request: ScriptRequest, user: dict) -> ScriptResponse:
+    city_psych = _load_city_psych(request.city)
+
+    top_hooks = await get_top_hooks(request.niche, request.city)
+    few_shot_text = "\n".join(
+        f'- "{h["text"]}" (type: {h.get("hook_type", "")})' for h in top_hooks
+    ) or "(No examples yet — generate hooks based on city psychology above)"
+
+    hook_prompt = _build_hook_prompt(
+        request.niche, request.city, request.offer,
+        request.target_audience, few_shot_text, city_psych,
+    )
+    hooks_data = await generate(hook_prompt, "hooks")
+    hooks = _build_hooks(hooks_data.get("hooks", []), top_hooks)
 
     selected = max(hooks, key=lambda h: h.freshness_score) if hooks else HookVariant(
         text="", type="curiosity", freshness_score=1.0
@@ -104,7 +133,7 @@ async def generate_script(request: ScriptRequest) -> ScriptResponse:
     task = _GOAL_TO_TASK.get(request.goal, "lead-script")
     script_data = await generate(script_prompt, task)
 
-    return ScriptResponse(
+    output = ScriptResponse(
         hooks=hooks,
         selected_hook=selected,
         script=script_data.get("script", ""),
@@ -116,3 +145,26 @@ async def generate_script(request: ScriptRequest) -> ScriptResponse:
         video_structure=script_data.get("video_structure", ""),
         shot_list=script_data.get("shot_list", []),
     )
+
+    # Persist to DB and update saturation (best-effort — don't fail the request)
+    org_id = user.get("org_id")
+    if org_id:
+        try:
+            supabase = get_supabase()
+            record = supabase.table("scripts").insert({
+                "org_id": org_id,
+                "business_id": request.business_id or None,
+                "user_id": user["id"],
+                "input_params": request.model_dump(),
+                "output": output.model_dump(),
+                "model_used": task,
+            }).execute()
+            if record.data:
+                output.script_id = record.data[0]["id"]
+
+            if selected.text:
+                await increment_hook_use(selected.text, request.niche, request.city, org_id)
+        except Exception:
+            pass  # persistence failure must not block the generation response
+
+    return output
