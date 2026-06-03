@@ -129,7 +129,11 @@ export function HookBank() {
       )
       setAddForm({ text: '', niche: 'optical', city: '', hook_type: '', language: 'tanglish' })
       setShowAddForm(false)
-      await fetchHooks()
+      try {
+        await fetchHooks()
+      } catch {
+        // fetchHooks sets its own error state
+      }
     } catch (err) {
       setAddError(err instanceof Error ? err.message : 'Failed to add hook')
     } finally {
@@ -177,9 +181,9 @@ export function HookBank() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setShowAddForm((v) => !v)}
+                onClick={() => { setShowAddForm((v) => !v); setAddError('') }}
               >
-                {showAddForm ? 'Cancel' : '+ Add Hook'}
+                {showAddForm ? 'Cancel' : 'Add Hook'}
               </Button>
             </div>
           </div>
@@ -280,8 +284,8 @@ export function HookBank() {
                   {/* Freshness dot */}
                   <div className="mt-1.5 flex-shrink-0">
                     <span
-                      className={`inline-block w-2.5 h-2.5 rounded-full ${freshnessColor(hook.saturation_score)}`}
-                      title={freshnessLabel(hook.saturation_score)}
+                      className={`inline-block w-2.5 h-2.5 rounded-full ${freshnessColor(hook.saturation_score ?? 0)}`}
+                      title={freshnessLabel(hook.saturation_score ?? 0)}
                     />
                   </div>
                   {/* Text */}
@@ -303,13 +307,13 @@ export function HookBank() {
                     <p className="text-xs text-zinc-500">
                       Freshness:{' '}
                       <span className="font-medium text-zinc-800">
-                        {Math.round((1 - hook.saturation_score) * 100)}%
+                        {Math.round((1 - (hook.saturation_score ?? 0)) * 100)}%
                       </span>
                     </p>
                     <p className="text-xs text-zinc-500">
                       Score:{' '}
                       <span className="font-medium text-zinc-800">
-                        {Math.round(hook.performance_score * 100)}%
+                        {Math.round((hook.performance_score ?? 0) * 100)}%
                       </span>
                     </p>
                     <p className="text-xs text-zinc-400">Used {hook.use_count}×</p>
