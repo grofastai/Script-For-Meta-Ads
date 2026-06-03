@@ -1,4 +1,4 @@
-import type { ScriptInput, ScriptOutput } from '@scriptsite/shared/types'
+import type { ScriptInput, ScriptOutput, Hook, HookCreateInput } from '@scriptsite/shared/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000'
 
@@ -22,12 +22,34 @@ async function apiFetch<T>(
   return res.json() as Promise<T>
 }
 
+export interface HookFilters {
+  niche?: string
+  city?: string
+  hook_type?: string
+}
+
 export const apiClient = {
   health: () =>
     apiFetch<{ status: string; version: string }>('/health'),
 
   generateScript: (input: ScriptInput, token: string) =>
     apiFetch<ScriptOutput>('/generate/script', {
+      method: 'POST',
+      body: JSON.stringify(input),
+      token,
+    }),
+
+  getHooks: (filters: HookFilters, token: string) => {
+    const params = new URLSearchParams()
+    if (filters.niche) params.set('niche', filters.niche)
+    if (filters.city) params.set('city', filters.city)
+    if (filters.hook_type) params.set('hook_type', filters.hook_type)
+    const qs = params.toString()
+    return apiFetch<Hook[]>(`/hooks${qs ? `?${qs}` : ''}`, { token })
+  },
+
+  addHook: (input: HookCreateInput, token: string) =>
+    apiFetch<Hook>('/hooks', {
       method: 'POST',
       body: JSON.stringify(input),
       token,
