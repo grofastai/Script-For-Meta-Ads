@@ -95,7 +95,10 @@ async def generate_hooks_only(request: HooksOnlyRequest) -> HooksOnlyResponse:
         request.niche, request.city, request.offer,
         request.target_audience, few_shot_text, city_psych,
     )
-    hooks_data = await generate(hook_prompt, "hooks")
+    try:
+        hooks_data = await generate(hook_prompt, "hooks")
+    except Exception as exc:
+        raise ValueError(f"Hook generation failed: {exc}") from exc
     hooks = _build_hooks(hooks_data.get("hooks", []), top_hooks)
     return HooksOnlyResponse(hooks=hooks)
 
@@ -112,12 +115,16 @@ async def generate_script(request: ScriptRequest, user: dict) -> ScriptResponse:
         request.niche, request.city, request.offer,
         request.target_audience, few_shot_text, city_psych,
     )
-    hooks_data = await generate(hook_prompt, "hooks")
+    try:
+        hooks_data = await generate(hook_prompt, "hooks")
+    except Exception as exc:
+        raise ValueError(f"Hook generation failed: {exc}") from exc
     hooks = _build_hooks(hooks_data.get("hooks", []), top_hooks)
 
-    selected = max(hooks, key=lambda h: h.freshness_score) if hooks else HookVariant(
-        text="", type="curiosity", freshness_score=1.0
-    )
+    if not hooks:
+        raise ValueError("AI returned no hook variants — cannot generate script")
+
+    selected = max(hooks, key=lambda h: h.freshness_score)
 
     script_prompt = _build_script_prompt(
         goal=request.goal,
@@ -131,7 +138,10 @@ async def generate_script(request: ScriptRequest, user: dict) -> ScriptResponse:
         language=request.language,
     )
     task = _GOAL_TO_TASK.get(request.goal, "lead-script")
-    script_data = await generate(script_prompt, task)
+    try:
+        script_data = await generate(script_prompt, task)
+    except Exception as exc:
+        raise ValueError(f"Script generation failed: {exc}") from exc
 
     output = ScriptResponse(
         hooks=hooks,

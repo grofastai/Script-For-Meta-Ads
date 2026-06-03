@@ -7,6 +7,7 @@ _MODEL_MAP = {
     "lead-script": "claude-sonnet-4-5",
     "story-script": "claude-sonnet-4-5",
     "offer-script": "gpt-4o",
+    "testimonial-script": "claude-sonnet-4-5",
 }
 
 
