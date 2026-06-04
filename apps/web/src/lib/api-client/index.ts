@@ -1,4 +1,10 @@
-import type { ScriptInput, ScriptOutput, Hook, HookCreateInput, Campaign, CampaignCreateInput } from '@scriptsite/shared/types'
+import type {
+  ScriptInput, ScriptOutput,
+  Hook, HookCreateInput,
+  Campaign, CampaignCreateInput,
+  OfferAnalysisRequest, OfferAnalysisResult,
+  CompetitorRequest, CompetitorResult,
+} from '@scriptsite/shared/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000'
 
@@ -67,4 +73,18 @@ export const apiClient = {
 
   getCampaign: (id: string, token: string) =>
     apiFetch<Campaign>(`/analytics/campaign/${id}`, { token }),
+
+  analyzeOffer: (input: OfferAnalysisRequest, token: string) =>
+    apiFetch<OfferAnalysisResult>('/analyze/offer', {
+      method: 'POST',
+      body: JSON.stringify(input),
+      token,
+    }),
+
+  analyzeCompetitor: (input: CompetitorRequest, token: string) =>
+    apiFetch<CompetitorResult>('/competitors/analyze', {
+      method: 'POST',
+      body: JSON.stringify(input),
+      token,
+    }),
 }
